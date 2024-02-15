@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .bet-input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            width: 200px;
+            margin-right: 10px;
+            box-sizing: border-box;
+        }
+
+        .bet-input:focus {
+            outline: none;
+            border-color: #0056b3;
+        }
+
+        .card {
+            display: inline-block;
+            margin: 0 10px;
+            border: 1px solid black;
+            padding: 10px;
+            width: 200px; /* Set width to 300 pixels */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Blackjack</h1>
+        <div id="player-hand">
+            <h3>Player's Hand</h3>
+        </div>
+        <div id="dealer-hand">
+            <h3>Dealer's Hand</h3>
+        </div>
+        <div id="buttons" class="buttons">
+            <input type="number" id="betAmount" class="bet-input" placeholder="Enter Bet Amount">
+            <button class="button" onclick="deal()">Deal</button>
+            <button class="button" onclick="hit()" id="hitBtn" style="display: none;">Hit</button>
+            <button class="button" onclick="stand()" id="standBtn" style="display: none;">Stand</button>
+        </div>
+        <div id="result"></div>
+        <div id="balance">Balance: $500</div>
+    </div>
+
+    <script>
+        const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
+        const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace'];
+
+        let deck = [];
+        let playerHand = [];
+        let dealerHand = [];
+        let balance = 500; // Starting balance
+        let betAmount = 0; // Default bet amount
+
+        function createDeck() {
+            for (let suit of suits) {
+                for (let value of values) {
+                    deck.push({ value, suit });
+                }
+            }
+        }
+
+        function shuffleDeck() {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+        }
+
+        function deal() {
+            betAmount = parseInt(document.getElementById('betAmount').value);
+            if (isNaN(betAmount) || betAmount <= 0 || betAmount > balance) {
+                alert('Please enter a valid bet amount.');
+                return;
+            }
+            createDeck();
+            shuffleDeck();
+            balance -= betAmount;
+            document.getElementById('balance').textContent = `Balance: $${balance}`;
+            playerHand = [dealCard(), dealCard()];
+            dealerHand = [dealCard(), dealCard()];
+            renderHands();
+            document.getElementById('buttons').innerHTML = '<button class="button" onclick="hit()" id="hitBtn">Hit</button><button class="button" onclick="stand()" id="standBtn">Stand</button>';
+        }
+
+        function dealCard() {
+            return deck.pop();
+        }
+
+        function renderHands() {
+            const playerHandElement = document.getElementById('player-hand');
+            const dealerHandElement = document.getElementById('dealer-hand');
+            playerHandElement.innerHTML = `<h3>Player's Hand</h3>`;
+            dealerHandElement.innerHTML = `<h3>Dealer's Hand</h3>`;
+            playerHand.forEach(card => {
+                const cardElement = document.createElement('img');
+                cardElement.classList.add('card');
+                cardElement.src = `cards/${card.value}_of_${card.suit}.png`; // Change extension to .png
+                cardElement.alt = `${card.value} of ${card.suit}`;
+                cardElement.width = 300; // Set width to 300 pixels
+                playerHandElement.appendChild(cardElement);
+            });
+            dealerHand.forEach(card => {
+                const cardElement = document.createElement('img');
+                cardElement.classList.add('card');
+                cardElement.src = `cards/${card.value}_of_${card.suit}.png`; // Change extension to .png
+                cardElement.alt = `${card.value} of ${card.suit}`;
+                cardElement.width = 300; // Set width to 300 pixels
+                dealerHandElement.appendChild(cardElement);
+            });
+        }
+
+        function calculateHand(hand) {
+            let sum = 0;
+            let hasAce = false;
+            for (let card of hand) {
+                if (card.value === 'ace') {
+                    hasAce = true;
+                }
+                if (['jack', 'queen', 'king'].includes(card.value)) {
+                    sum += 10;
+                } else if (card.value === 'ace') {
+                    sum += 11;
+                } else {
+                    sum += parseInt(card.value);
+                }
+            }
+            if (hasAce && sum > 21) {
+                sum -= 10;
+            }
+            return sum;
+        }
+
+        function hit() {
+            playerHand.push(dealCard());
+            renderHands();
+            const playerScore = calculateHand(playerHand);
+            if (playerScore > 21) {
+                endGame('Dealer wins! Player busts.');
+            }
+        }
+
+        function stand() {
+            let dealerScore = calculateHand(dealerHand);
+            while (dealerScore < 15) { // Change the threshold to 15
+                dealerHand.push(dealCard());
+                dealerScore = calculateHand(dealerHand);
+            }
+            renderHands();
+            const playerScore = calculateHand(playerHand);
+            if (dealerScore > 21 || playerScore > dealerScore) {
+                balance += betAmount * 2;
+                endGame('Player wins!');
+            } else if (dealerScore > playerScore) {
+                endGame('Dealer wins!');
+            } else {
+                balance += betAmount;
+                endGame('It\'s a tie!');
+            }
+        }
+
+        function endGame(message) {
+            document.getElementById('result').textContent = message;
+            document.getElementById('balance').textContent = `Balance: $${balance}`;
+            document.getElementById('buttons').innerHTML = '<button class="button" onclick="deal()">Deal</button>';
+            document.getElementById('hitBtn').style.display = 'none';
+            document.getElementById('standBtn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

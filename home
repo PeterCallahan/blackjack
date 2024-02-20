@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional FAKE Gambling Website</title>
+  <style>
+    /* Reset CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-image: url('./wallpaper/homwall.jpg'); /* Replace 'background_image.jpg' with the path to your image */
+            background-size: cover;
+            background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      color: #ff0000; /* Set a dark text color */
+    }
+
+    /* Header Styles */
+    header {
+      background-color: transparent;
+      color: #fffb00;
+      padding: 20px 0;
+      text-align: center;
+      border-bottom: 5px solid #ffe600;
+      position: relative;
+      width: 100%;
+      margin-bottom: 21px;
+      margin-top: -22%;
+    }
+
+    header h1 {
+      font-size: 4rem;
+      text-shadow: 2px 2px 4px rgb(0, 0, 0);
+    }
+
+    /* Navigation Styles */
+    nav {
+      background-color: #44444400;
+      padding: 10px 0;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 15px;
+      background-color: #ff7f00;
+      transition: background-color 0.3s ease;
+      border: 2px solid #e6b800;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    nav a:hover {
+      background-color: #fa1100;
+    }
+
+    /* Main Content Styles */
+    .container {
+      width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .jumbotron {
+      background-color: #000000bd;
+      padding: 40px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 0 530px rgb(0, 0, 0);
+      position: relative;
+      top: 110px; /* Adjust the position */
+    }
+
+    .jumbotron h2 {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      color: #ffd900;
+    }
+
+    .jumbotron p {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      color: #ffd900;
+    }
+
+    .jumbotron a {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: #ff9100ad;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .jumbotron a:hover {
+      background-color: #ff00005e;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #000000ab;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      border-top: 4px solid #e6b800;
+    }
+
+    footer p {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Welcome to our Professional FAKE Gambling Website</h1>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="Games.html">Games</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="jumbotron">
+      <h2>Join the Excitement!</h2>
+      <p>Experience the thrill of gambling with our wide range of games and win big!</p>
+      <a href="Games.html" class="btn">Get Started</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Professional Gambling Website. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

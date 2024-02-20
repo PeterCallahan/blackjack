@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <style>
+    /* Reset CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('./wallpaper/aboutwall.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header Styles */
+    header {
+      padding: 50px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Main Content Styles */
+    .container {
+      max-width: 800px;
+      margin: 100px auto 20px; /* Adjusted margin */
+      padding: 0 20px;
+    }
+
+    .section {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 30px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .section h2 {
+      margin-bottom: 20px;
+      color: #ffffff;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    .section p {
+      line-height: 1.6;
+      color: #f0f0f0;
+    }
+
+    .section ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .section ul li {
+      margin-bottom: 10px;
+    }
+
+    nav {
+      background-color: rgba(255, 255, 255, 0.3);
+      margin-top: -795px;
+      padding: 20px 0;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 15px;
+      background-color: #ff7f00;
+      transition: background-color 0.3s ease;
+      border: 2px solid #e6b800;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    nav a:hover {
+      background-color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>About Us</h1>
+  </header>
+  
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="section">
+      <h2>Our Story</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac tellus non felis accumsan tristique. Phasellus sit amet mollis ante. Proin nec orci ac felis ultricies rhoncus non sit amet lacus. Donec euismod nunc in lacus dignissim, ac bibendum nisi semper.</p>
+    </div>
+
+    <div class="section">
+      <h2>Our Mission</h2>
+      <p>Nulla sit amet sem ut velit vestibulum pretium. Nam congue tempus elit, id fermentum dui consectetur ut. Donec aliquam risus sed nibh varius, in condimentum velit feugiat. Vestibulum vel augue et est fringilla luctus.</p>
+    </div>
+
+    <div class="section">
+      <h2>Our Team</h2>
+      <p>Meet our dedicated team of professionals who work tirelessly to provide you with the best gaming experience.</p>
+      <ul>
+        <li>John Doe - CEO</li>
+        <li>Jane Smith - Marketing Director</li>
+        <li>Michael Johnson - Head of Operations</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="Games.html">Games</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+</body>
+</html>

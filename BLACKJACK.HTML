@@ -5,14 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blackjack</title>
     <style>
-        body {
+         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-image: url('./wallpaper/blackjackback.jpg'); /* Replace 'background_image.jpg' with the path to your image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
             text-align: center;
             margin-top: 50px;
+        }
+
+        h1 {
+            color: #ffd900;
+        }
+
+        h3{
+            color: #d9ff00;
         }
 
         .buttons {
@@ -25,22 +37,23 @@
             font-size: 16px;
             font-weight: bold;
             text-transform: uppercase;
-            background-color: #007bff;
-            color: #fff;
+            background-color: #d9ff00;
+            color: #ffffff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-right: 10px; /* Add margin to separate buttons */
         }
 
         .button:hover {
-            background-color: #0056b3;
+            background-color: #d0ff00;
         }
 
         .bet-input {
             padding: 10px;
             font-size: 16px;
-            border: 2px solid #007bff;
+            border: 2px solid #e5ff00;
             border-radius: 5px;
             width: 200px;
             margin-right: 10px;
@@ -49,15 +62,28 @@
 
         .bet-input:focus {
             outline: none;
-            border-color: #0056b3;
+            border-color: #ffe600;
         }
 
         .card {
             display: inline-block;
             margin: 0 10px;
-            border: 1px solid black;
+            border: 1px solid #ccc;
             padding: 10px;
-            width: 200px; /* Set width to 300 pixels */
+            width: 200px;
+            background-color: #fff;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        #balance {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #fffb00;
         }
     </style>
 </head>
@@ -71,13 +97,13 @@
             <h3>Dealer's Hand</h3>
         </div>
         <div id="buttons" class="buttons">
-            <input type="number" id="betAmount" class="bet-input" placeholder="Enter Bet Amount">
-            <button class="button" onclick="deal()">Deal</button>
-            <button class="button" onclick="hit()" id="hitBtn" style="display: none;">Hit</button>
-            <button class="button" onclick="stand()" id="standBtn" style="display: none;">Stand</button>
+            <button onclick="deal()">Deal</button>
+            <button onclick="hit()" id="hitBtn" style="display: none;">Hit</button>
+            <button onclick="stand()" id="standBtn" style="display: none;">Stand</button>
         </div>
         <div id="result"></div>
-        <div id="balance">Balance: $500</div>
+        <div id="balance">Balance: $1000</div>
+        <input type="number" id="betInput" class="bet-input" placeholder="Enter bet amount">
     </div>
 
     <script>
@@ -87,10 +113,11 @@
         let deck = [];
         let playerHand = [];
         let dealerHand = [];
-        let balance = 500; // Starting balance
-        let betAmount = 0; // Default bet amount
+        let balance = 1000; // Starting balance
+        let betAmount = 50; // Default bet amount
 
         function createDeck() {
+            deck = [];
             for (let suit of suits) {
                 for (let value of values) {
                     deck.push({ value, suit });
@@ -106,9 +133,13 @@
         }
 
         function deal() {
-            betAmount = parseInt(document.getElementById('betAmount').value);
-            if (isNaN(betAmount) || betAmount <= 0 || betAmount > balance) {
+            betAmount = parseInt(document.getElementById('betInput').value); // Get bet amount from input field
+            if (isNaN(betAmount) || betAmount <= 0) {
                 alert('Please enter a valid bet amount.');
+                return;
+            }
+            if (balance < betAmount) {
+                alert('Insufficient balance. Please add more funds.');
                 return;
             }
             createDeck();
@@ -118,7 +149,7 @@
             playerHand = [dealCard(), dealCard()];
             dealerHand = [dealCard(), dealCard()];
             renderHands();
-            document.getElementById('buttons').innerHTML = '<button class="button" onclick="hit()" id="hitBtn">Hit</button><button class="button" onclick="stand()" id="standBtn">Stand</button>';
+            document.getElementById('buttons').innerHTML = '<button onclick="hit()" id="hitBtn">Hit</button><button onclick="stand()" id="standBtn">Stand</button>';
         }
 
         function dealCard() {
@@ -200,7 +231,7 @@
         function endGame(message) {
             document.getElementById('result').textContent = message;
             document.getElementById('balance').textContent = `Balance: $${balance}`;
-            document.getElementById('buttons').innerHTML = '<button class="button" onclick="deal()">Deal</button>';
+            document.getElementById('buttons').innerHTML = '<button onclick="deal()">Deal</button>';
             document.getElementById('hitBtn').style.display = 'none';
             document.getElementById('standBtn').style.display = 'none';
         }

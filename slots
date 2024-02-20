@@ -5,27 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Professional Slot Machine</title>
   <style>
-    body {
+   
+   body {
       margin: 0;
       padding: 0;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
-      background: linear-gradient(180deg, #3498db, #8e44ad);
-      background-size: cover;
+      background-image: url('./wallpaper/homwall.jpg'); /* Replace 'background_image.jpg' with the path to your image */
+            background-size: cover;
+            background-repeat: no-repeat;
       font-family: Arial, sans-serif;
-      color: #fff;
-      animation: flashColors 2s infinite alternate;
+      color: #ff9900; /* Set a dark text color */
     }
 
-    @keyframes flashColors {
+    /* Navigation Styles */
+    nav {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav a {
+      margin-bottom: 10px;
+      padding: 5px 10px;
+      font-size: 1.4rem;
+      text-decoration: none;
+      color: white;
+      background-color: #ff9900;
+      border-radius: 15px;
+    }
+
+    nav a:hover {
+      background-color: #ff0000;
+    }
+
+    .header {
+      text-align: center;
+      font-size: 4rem;
+      color: #ffffffb2; /* Initial color */
+      position: fixed;
+      top: 14%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: flashText 20s infinite;
+      /* Add 3D effect */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    @keyframes flashText {
       0% {
-        background-color: #3498db;
+        color: #5eff00b2; /* Red */
+      }
+      25% {
+        color: #0400ffb2; /* Red */
+      }
+      50% {
+        color: #00ccffb2; /* Red */
+      }
+      75% {
+        color: rgba(238, 255, 0, 0.698); /* Red */
       }
       100% {
-        background-color: #8e44ad;
+        color: #15ff00b2; /* Red */
       }
+    }
+
+    /* Style for home button */
+    .home-button {
+      position: fixed;
+      top: 10px;
+      right: 1800px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .home-button:hover {
+      background-color: #27ae60;
     }
 
     .slot-container {
@@ -49,7 +114,7 @@
 
     .reel {
       position: relative;
-      width: 79px;
+      width: 89px;
       height: 237px;
       border: 1px solid rgba(0, 0, 0, 0.3);
       border-radius: 3px;
@@ -136,6 +201,16 @@
   </style>
 </head>
 <body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="header"><h2>99% of people quit before winning big</h2></div>
+
   <div class="slot-container">
     <div class="slots">
       <div class="reel"></div>
@@ -145,7 +220,7 @@
 
     <div class="debug" id="debug"></div>
 
-    <p>Current Currency: $<span id="currency">500</span></p>
+    <p>Current Currency: $<span id="currency">1000</span></p>
 
     <div>
       <label for="nameInput">Enter Your Name:</label>
@@ -173,6 +248,15 @@
   </div>
 
   <script>
+    // JavaScript code with formatCurrency function
+    // Function to convert large currency values to abbreviated format
+    const formatCurrency = (amount) => {
+      if (amount >= 1e9) return (amount / 1e9).toFixed(1) + 'b';
+      if (amount >= 1e6) return (amount / 1e6).toFixed(1) + 'm';
+      if (amount >= 1e3) return (amount / 1e3).toFixed(1) + 'k';
+      return amount;
+    };
+
     const debugEl = document.getElementById('debug');
     const iconMap = ["banana", "seven", "cherry", "plum", "orange", "bell", "bar", "lemon", "melon"];
     const icon_width = 79;
@@ -180,7 +264,7 @@
     const num_icons = 9;
     const time_per_icon = 100;
     let indexes = [0, 0, 0];
-    let currency = 500;
+    let currency = 1000;   
 
     const roll = (reel, offset = 0) => {
       const delta = (offset + 2) * num_icons + Math.round(Math.random() * num_icons);
@@ -216,7 +300,7 @@
           } else {
             currency -= parseInt(document.getElementById('betAmount').value);
           }
-          document.getElementById('currency').textContent = currency;
+          document.getElementById('currency').textContent = formatCurrency(currency);
           updateLeaderboard(); // Update leaderboard after each spin
         });
     };
@@ -243,7 +327,7 @@
         const playerCell = document.createElement('td');
         playerCell.textContent = entry.player;
         const moneyCell = document.createElement('td');
-        moneyCell.textContent = '$' + entry.money;
+        moneyCell.textContent = '$' + formatCurrency(entry.money);
         row.appendChild(playerCell);
         row.appendChild(moneyCell);
         leaderboardBody.appendChild(row);
